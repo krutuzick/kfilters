@@ -245,7 +245,7 @@
 				}
 			})
 		}
-	}
+	};
 	
 	
 	
@@ -258,9 +258,7 @@
 				var sFilterName = 'fields_filter[' + filterData.name + ']';
 				var sFilterValue = $('input[type="checkbox"]:checked', element).eq(0).val();
 				
-				var sFilterString = sFilterName + '=' + sFilterValue;
-				
-				return sFilterString;
+				return sFilterName + '=' + sFilterValue;
 			} else {
 				return "";
 			}
@@ -286,7 +284,7 @@
 			
 			return arOptions.join('&');
 		}
-	}
+	};
 	
 	
 	
@@ -295,7 +293,6 @@
 	 */
 	var expandMethods = {
 		expand_boolean: function(element) {
-			return;
 		},
 		expand_number: function(element) {
 			$('.item_body', element).toggle();
@@ -303,7 +300,7 @@
 		expand_option: function(element) {
 			$('.item_body', element).toggle();
 		}
-	}
+	};
 	
 	
 	/**
@@ -402,11 +399,11 @@
 			});
 			
 			$('#filter-'+ controlData.id + '-0', $this).change(function() { 
-				if($(this).val() <= $('#filter-'+ controlData.id + '-1', $this).val()) $('#slider-for-' + controlData.id, $this).slider("values", [$('#filter-'+ controlData.id + '-0', $this).val(), $('#filter-'+ controlData.id + '-1', $this).val()]);
+				if($(this).val() <= $('#filter-'+ controlData.id + '-1', $this).val()) { $('#slider-for-' + controlData.id, $this).slider("values", [$('#filter-'+ controlData.id + '-0', $this).val(), $('#filter-'+ controlData.id + '-1', $this).val()]); return true; }
 				else return false;
 			});
 			$('#filter-'+ controlData.id + '-1', $this).change(function() { 
-				if($(this).val() >= $('#filter-'+ controlData.id + '-0', $this).val()) $('#slider-for-' + controlData.id, $this).slider("values", [$('#filter-'+ controlData.id + '-0', $this).val(), $('#filter-'+ controlData.id + '-1', $this).val()]);
+				if($(this).val() >= $('#filter-'+ controlData.id + '-0', $this).val()) { $('#slider-for-' + controlData.id, $this).slider("values", [$('#filter-'+ controlData.id + '-0', $this).val(), $('#filter-'+ controlData.id + '-1', $this).val()]); return true; }
 				else return false;
 			});
 			
@@ -455,7 +452,7 @@
 			debugLog(controlData);
 			debugLog('Тип string надо преобразовывать в option');
 		}
-	}
+	};
 	
 	
 	
@@ -479,7 +476,7 @@
 				var widgetCss = {
 					width: opts.width,
 					'min-height': opts['min-height']
-				}
+				};
 				$this.addClass('theme-' + opts.theme);
 				$this.addClass('kfilter');
 				$this.css(widgetCss);
@@ -509,7 +506,7 @@
 						debugLog('Unknown control type "' + controlData.type + '" for field "' + controlData.title + '"[' + controlData.name + ']', true);
 					}
 					opts.onAfterDrawControl($this, controlData);
-				};
+				}
 				
 				function preExpandControl(controlData) {
 					for(var e=0; e < arPreExpanded.length; e++) {
@@ -626,6 +623,7 @@
 		} else {
 			//Otherwise rise error
 			debugLog('Method ' +  method + ' does not exist on jQuery.kFilters', true);
+			return this;
 		}
 	};
 	
@@ -723,7 +721,7 @@
 		},
 		tip: 'topLeft',
 		name: 'dark'
-	}
+	};
 	
 	/**
 	 * Настройки для tip-ов по-умолччанию

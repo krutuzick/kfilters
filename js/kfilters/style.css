@@ -1,0 +1,212 @@
+/** Главный контейнер **/
+.kfilter {
+	border: 1px solid #FF9B00;
+	border-radius: 10px; /** @todo: border-radius для moz и webkit **/
+	padding: 5px 5px 5px 5px;
+	font-size: 12px;
+	line-height: 100%;
+}
+
+	.kfilter * {
+		vertical-align: baseline !important;
+	}
+
+	.kfilter .noItems {
+		color: #B0B0B0 !important;
+	}
+
+	/** Прелоадер **/
+	.kfilter .init_preloader {
+		width: 66px;
+		height: 66px;
+		margin: 10px auto;
+		background-image: url(loader.gif);
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+	/** Форма **/
+	.kfilter .kform {
+	}
+
+		/** Список элементов формы **/
+		.kfilter .kform ul {
+			list-style: none;
+			background: none;
+			margin: 0;
+			padding: 0;
+		}
+
+			/** Элемент списка формы **/
+			.kfilter .kform ul li {
+				list-style: none;
+				margin: 10px 0px 10px 0px;
+				padding: 0;
+			}
+
+				/** Текст подсказки для элемента спсика формы **/
+				.kfilter .kform ul li .tip_text {
+					display: none;
+				}
+
+				/** Кнопка подсказки для элемента списка формы **/
+				.kfilter .kform ul li .tip_link {
+					width: 10px;
+					height: 10px;
+					border: none;
+					background-color: #ffffff;
+					background-image: url(question.png);
+					background-repeat: no-repeat;
+					background-position: center center;
+					display: inline-block; /** @todo: хак inline-block для ie **/
+				}
+
+				/** Заголовок для элемента формы **/
+				.kfilter .kform ul li .field_caption {
+					line-height: 16px;
+					text-decoration: none;
+					border: none;
+					margin: 0;
+				}
+
+				/** Тело "сложного" элемента **/
+				.kfilter .kform ul li .item_body {
+					display: none;
+					margin: 10px 0px 25px 0px;
+				}
+
+			/** Элемент списка формы - boolean **/
+			.kfilter .kform ul li.boolean {
+			}
+
+				.kfilter .kform ul li.boolean input {
+					margin: 0px 2px 0px 0px;
+				}
+				
+				.kfilter .kform ul li.boolean .field_caption {
+					margin-left: 3px;
+				}
+
+			/** Элемент списка формы - number **/
+			.kfilter .kform ul li.number {
+			}
+
+				.kfilter .kform ul li.number input {
+					width: 25%;
+				}
+				
+				.kfilter .kform ul li.number .field_caption {
+					border-bottom: 1px dotted #000000;
+					cursor: pointer;
+				}
+				
+				/** Слайдер для числового диапазона **/
+				.kfilter .kform ul li.number .number-slider {
+					margin: 10px 10px 0px 10px;
+					height: 5px;
+				}
+				
+					.kfilter .kform ul li.number .number-slider .ui-slider-handle {
+						background: transparent;
+						border-radius: 0;
+						top: 100%;
+						width: 0px;
+						height: 0px;
+						border-top: 5px solid transparent;
+						border-right: 5px solid transparent;
+						border-left: 5px solid #000000;
+						border-bottom: 5px solid #000000;
+						margin-left: 0px;
+						cursor: pointer;
+					}
+					
+					.kfilter .kform ul li.number .number-slider div + a.ui-slider-handle {
+						border-top: 5px solid transparent;
+						border-right: 5px solid #000000;
+						border-left: 5px solid transparent;
+						border-bottom: 5px solid #000000;
+						margin-left: -10px;
+					}
+
+			/** Элемент списка формы - option **/
+			.kfilter .kform ul li.option {
+			}
+
+				.kfilter .kform ul li.option input {
+					margin: 0px 2px 0px 0px;
+				}
+				
+				.kfilter .kform ul li.option .field_caption {
+					border-bottom: 1px dotted #000000;
+					cursor: pointer;
+				}
+				
+					.kfilter .kform ul li.option ul {
+						margin: 0px 0px 0px 10px;
+					}
+					
+						.kfilter .kform ul li.option ul li {
+							margin: 5px 0px 5px 0px;
+						}
+						
+							.kfilter .kform ul li.option ul li .option_caption {
+								margin: 0px 0px 0px 5px;
+							}
+
+		.kfilter .kform .submit_btn {
+			overflow: visible !important;
+			width: auto !important;
+			padding: 0px 2px 0px 2px;
+		}
+
+/** Контейнер для подсказок **/
+.qtip .qtip-wrapper {
+	box-shadow: 0px 0px 5px #000000;
+}
+
+.qtip .qtip-tip {
+	z-index: 9999;
+}
+
+.qtip .qtip-wrapper .qtip-content,
+.qtip .qtip-wrapper .qtip-content * {
+	vertical-align: baseline !important;
+}
+
+.qtip .qtip-wrapper .qtip-content .tipLoader {
+	display: block;
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 0px 10px 0px 10px;
+	background-image: url(count_loader.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.qtip .qtip-wrapper .qtip-content .submit_link {
+	display: block;
+	float: left;
+	min-width: 16px;
+	min-height: 16px;
+	padding: 0;
+	margin: 0px 10px 0px 10px;
+}
+
+.qtip .qtip-wrapper .qtip-content .countTipText {
+	display: block;
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+.qtip .qtip-wrapper .qtip-content .cleaner {
+	line-height: 0px;
+	height: 0px;
+	width: 1px;
+	border: none;
+	clear: both;
+	float: none;
+	font-size: 0px;
+}

@@ -326,13 +326,15 @@ SQL;
 	 */
 	public function saveJsonCache($json) {
 		$jsonCacheRoot = CURRENT_WORKING_DIR . "/js/kfilters/kJsonCache";
+		$jsonCacheCatalogActionFilterRoot = str_replace('?', '', trim(getServer('REQUEST_URI'), '/ '));
+		if(strlen($jsonCacheCatalogActionFilterRoot) > 255) return; //ограничение на максимально допустимую длину имени файла
+		//TODO: подумать, как обойти это ограничение (подпапки и хитрый .htaccess ?... альтернативное кэширование ?...)
 		
 		if(!is_dir($jsonCacheRoot)) {
 			mkdir($jsonCacheRoot);
 			@chmod($jsonCacheRoot, 0777);
 		}
 		
-		$jsonCacheCatalogActionFilterRoot = str_replace('?', '', trim(getServer('REQUEST_URI'), '/ '));
 		$this->createDirRecurent($jsonCacheRoot, $jsonCacheCatalogActionFilterRoot);
 		
 		file_put_contents($jsonCacheRoot . '/' . $jsonCacheCatalogActionFilterRoot . "/index.html", $json);

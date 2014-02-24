@@ -20,7 +20,7 @@
 		$.ajax({
 			url: '/udata' + opts.filtersMacro + 'GetFilters/' + opts.category_id + '/',
 			dataType: 'json',
-			type: 'POST',
+			type: 'GET',
 			cache: false,
 			data: sCurrentGetParams,
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -71,7 +71,16 @@
 				$('#' + sElementID + ' input[type="text"]').each(function() {
 					sOptionName = $(this).attr('name');
 					sOptionValue = $(this).val();
-					arData.push(sOptionName + '=' + sOptionValue);
+					if(arFiltersData[i].type == 'number') {
+					/* exclude min and max values from sliders - they doesn't matter */
+						if( !(sOptionName == ('filter-'+ arFiltersData[i].id + '[gt]') && sOptionValue == arFiltersData[i].values[0]) &&
+							!(sOptionName == ('filter-'+ arFiltersData[i].id + '[lt]') && sOptionValue == arFiltersData[i].values[1]) ) {
+							arData.push(sOptionName + '=' + sOptionValue);
+						}
+					/* ***** */
+					} else {
+						arData.push(sOptionName + '=' + sOptionValue);
+					}
 				});
 				
 				$('#' + sElementID + ' input[type="checkbox"]:checked').each(function() {
@@ -570,7 +579,7 @@
 					url: '/udata' + opts.filtersMacro + 'GetCount/' + opts.category_id + '/',
 					data: sQuery,
 					dataType: 'json',
-					type: 'POST',
+					type: 'GET',
 					cache: false,
 					error: function(jqXHR, textStatus, errorThrown) {
 						debugLog('Failed to perform GetCount request: ' + textStatus + ' :: ' + errorThrown, true);

@@ -282,7 +282,15 @@
 			var sFilterValueMore = $('input#filter-' + filterData.id + '-0', element).val();
 			var sFilterValueLess = $('input#filter-' + filterData.id + '-1', element).val();
 			
-			return sFilterNameMore + '=' + sFilterValueMore + '&' + sFilterNameLess + '=' + sFilterValueLess;
+			var arFilter = [];
+			if(sFilterValueMore != filterData.values[0]) {
+				arFilter.push(sFilterNameMore + '=' + sFilterValueMore);
+			}
+			if(sFilterValueLess != filterData.values[1]) {
+				arFilter.push(sFilterNameLess + '=' + sFilterValueLess);
+			}
+			
+			return arFilter.join('&');
 		},
 		fields_filter_option: function(element, filterData) {
 			var sFilterName = 'k_fields_filter[' + filterData.name + '][in]';

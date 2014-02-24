@@ -301,38 +301,42 @@ SQL;
 		return $sel;
 	}
 
-	public function saveJsonCache($action, $json) {
-		$jsonCacheRoot = __DIR__ . "/kJsonCache";
-		
-		if(!is_dir($jsonCacheRoot)) return;
-		
-		$requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-		$filterUri = explode('?', $requestUri);
-		$filterQuery = isset($filterUri[1]) ? $filterUri[1] : '';
-		$filterQuery = preg_replace('/_=\d+', '', $filterQuery); // Remove jquery cache flag
-		
-		$jsonCacheCatalogRoot = $jsonCacheRoot . "/" . $this->catalogId;
-		if(!is_dir($jsonCacheCatalogRoot)) {
-			mkdir($jsonCacheCatalogRoot);
-			@chmod($jsonCacheCatalogRoot, 0777);
-		}
-		
-		$jsonCacheCatalogActionRoot = $jsonCacheCatalogRoot . "/" . $action;
-		if(!is_dir($jsonCacheCatalogActionRoot)) {
-			mkdir($jsonCacheCatalogActionRoot);
-			@chmod($jsonCacheCatalogActionRoot, 0777);
-		}
-		
+	/**
+	 * Создать папку рекурсивно со всеми подпапками, с выставлением прав 0777
+	 * @param string $target_dir Папка, в которой создаётся новая папка
+	 * @param string $dir Создаваемая папка
+	 */
+	protected function createDirRecurent($target_dir, $dir) {
+		$dir = str_replace('\\', '/', $dir);
+		$dir = trim($dir, '/ ');
+		if($dir == '') return;
+		$arDir = explode('/', $dir);
 		clearstatcache();
+		$subdir = array_shift($arDir);
+		if(!is_dir($target_dir . "/" . $subdir)) {
+			mkdir($target_dir . "/" . $subdir);
+			@chmod($target_dir . "/" . $subdir, 0777);
+		}
+		$this->createDirRecurent($target_dir . "/" . $subdir, join('/', $arDir));
+	}
+
+	/**
+	 * Сохранить json-ответ на действие в файл в папке /js/kfilters/kJsonCache
+	 * @param string $json
+	 */
+	public function saveJsonCache($json) {
+		$jsonCacheRoot = CURRENT_WORKING_DIR . "/js/kfilters/kJsonCache";
 		
-		$jsonCacheCatalogActionFilterRoot =  rtrim($jsonCacheCatalogActionRoot . '/' . $filterQuery, '/');
-		if(!is_dir($jsonCacheCatalogActionFilterRoot)) {
-			mkdir($jsonCacheCatalogActionFilterRoot);
-			@chmod($jsonCacheCatalogActionFilterRoot, 0777);
+		if(!is_dir($jsonCacheRoot)) {
+			mkdir($jsonCacheRoot);
+			@chmod($jsonCacheRoot, 0777);
 		}
 		
-		file_put_contents($jsonCacheCatalogActionFilterRoot . "/index.html", $json);
-		@chmod($jsonCacheCatalogActionFilterRoot . "/index.html", 0666);
+		$jsonCacheCatalogActionFilterRoot = str_replace('?', '', trim(getServer('REQUEST_URI'), '/ '));
+		$this->createDirRecurent($jsonCacheRoot, $jsonCacheCatalogActionFilterRoot);
+		
+		file_put_contents($jsonCacheRoot . '/' . $jsonCacheCatalogActionFilterRoot . "/index.html", $json);
+		@chmod($jsonCacheRoot . '/' . $jsonCacheCatalogActionFilterRoot . "/index.html", 0666);
 	}
 };
 

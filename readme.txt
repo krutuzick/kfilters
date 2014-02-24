@@ -27,6 +27,15 @@
 		
 		$filtersResult = kFilters::getInstance($sCategoryId)->runAction($sAction);
 		
+		if(kFilters::getInstance($sCategoryId)->customLogic->saveJsonCache()) {
+			kFilters::getInstance($sCategoryId)->saveJsonCache($filtersResult);
+		}
+		
+		// Disable browser caching
+		header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+		header('Pragma: no-cache'); // HTTP 1.0.
+		header('Expires: 0'); // Proxies.
+		
 		return def_module::flush($filtersResult, "text/javascript");
 	}
   1.3) В макросе отображения товаров (будь то кастом или системный) - надо найти место, где формируется выборка (объект класса umiSelection) и добавить туда код: 
@@ -35,6 +44,11 @@
   где $sel - это и есть объект umiSelection. Этот код позволяет реализовать условие равенства нескольким критериям через get-запрос (fields_filter)
   1.4) Надо добавить permission для кастома catalog::kfilters, доступный для всех - это макрос, на который обращается виджет с front-end-а
   1.5) В customLogic надо указать группы полей и прочие настройки данных
+  1.6) В customLogic можно указать сохранение json-ответов в кэш (метод saveJsonCache). Если используется сохранение, то в основной .htaccess сайта нужно в самый веркх (сразу после RewriteEngine On) добавить правила для статического кэша:
+	RewriteCond %{REQUEST_URI} ^/udata/catalog/kfilters/(.+)
+	RewriteCond %{DOCUMENT_ROOT}/js/kfilters/kJsonCache/%{REQUEST_URI}/%{QUERY_STRING}/index.html -f
+	RewriteRule ^(.*)$ /js/kfilters/kJsonCache/%{REQUEST_URI}/%{QUERY_STRING}/index.html [L]
+
 2. Front-end.
   2.1) Необходимо разместить в папку js на сайте. Проект использует jquery (нет в архиве - должен быть на сайте), jqueryUI, jquery qTip
   2.2) В вёрстке надо разместить пустой div (скажем, с id=kFiltersBlock) и подключить виджет в тэге head следующим образом:

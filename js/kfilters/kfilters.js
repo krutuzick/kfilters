@@ -24,7 +24,7 @@
 			url: '/udata' + opts.filtersMacro + 'GetFilters/' + opts.category_id + '/',
 			dataType: 'json',
 			type: 'GET',
-			cache: false,
+			cache: true,
 			data: sCurrentGetParams,
 			error: function(jqXHR, textStatus, errorThrown) {
 				debugLog('Failed to perform GetFilters request: ' + textStatus + ' :: ' + errorThrown, true);
@@ -583,7 +583,7 @@
 					data: sQuery,
 					dataType: 'json',
 					type: 'GET',
-					cache: false,
+					cache: true,
 					error: function(jqXHR, textStatus, errorThrown) {
 						debugLog('Failed to perform GetCount request: ' + textStatus + ' :: ' + errorThrown, true);
 						countTipApi.hide();

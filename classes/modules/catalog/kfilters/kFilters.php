@@ -301,6 +301,39 @@ SQL;
 		return $sel;
 	}
 
+	public function saveJsonCache($action, $json) {
+		$jsonCacheRoot = __DIR__ . "/kJsonCache";
+		
+		if(!is_dir($jsonCacheRoot)) return;
+		
+		$requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+		$filterUri = explode('?', $requestUri);
+		$filterQuery = isset($filterUri[1]) ? $filterUri[1] : '';
+		$filterQuery = preg_replace('/_=\d+', '', $filterQuery); // Remove jquery cache flag
+		
+		$jsonCacheCatalogRoot = $jsonCacheRoot . "/" . $this->catalogId;
+		if(!is_dir($jsonCacheCatalogRoot)) {
+			mkdir($jsonCacheCatalogRoot);
+			@chmod($jsonCacheCatalogRoot, 0777);
+		}
+		
+		$jsonCacheCatalogActionRoot = $jsonCacheCatalogRoot . "/" . $action;
+		if(!is_dir($jsonCacheCatalogActionRoot)) {
+			mkdir($jsonCacheCatalogActionRoot);
+			@chmod($jsonCacheCatalogActionRoot, 0777);
+		}
+		
+		clearstatcache();
+		
+		$jsonCacheCatalogActionFilterRoot =  rtrim($jsonCacheCatalogActionRoot . '/' . $filterQuery, '/');
+		if(!is_dir($jsonCacheCatalogActionFilterRoot)) {
+			mkdir($jsonCacheCatalogActionFilterRoot);
+			@chmod($jsonCacheCatalogActionFilterRoot, 0777);
+		}
+		
+		file_put_contents($jsonCacheCatalogActionFilterRoot . "/index.html", $json);
+		@chmod($jsonCacheCatalogActionFilterRoot . "/index.html", 0666);
+	}
 };
 
 ?>

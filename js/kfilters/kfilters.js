@@ -16,7 +16,10 @@
 	
 	function initFilters($this, opts) {
 		opts.onBeforeInit($this);
-		var sCurrentGetParams = document.location.href.substr(document.location.href.indexOf("?") + 1);
+		var sCurrentGetParams = '';
+		if(document.location.href.indexOf('?') >= 0) {
+			sCurrentGetParams = document.location.href.substr(document.location.href.indexOf("?") + 1);
+		}
 		$.ajax({
 			url: '/udata' + opts.filtersMacro + 'GetFilters/' + opts.category_id + '/',
 			dataType: 'json',

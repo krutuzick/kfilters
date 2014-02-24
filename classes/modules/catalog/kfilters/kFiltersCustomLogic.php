@@ -103,7 +103,15 @@ class kFiltersCustomLogic {
 	public function showStateOnCount() {
 		return true;
 	}
-	
+
+	/**
+	 * Сохранять ли результирующие json-ы запросов в папке kJsonCache
+	 * @return boolean
+	 */
+	public function saveJsonCache() {
+		return true;
+	}
+
 	/**
 	 * Список названий полей, которые должны быть раскрыты при закрузке виджета
 	 * @return array

@@ -128,14 +128,8 @@ class kFiltersAction_GetCount extends kFiltersAction {
 	}
 	
 	protected function getCurrentCountSelection() {
-		$hierarchy_type_id = umiHierarchyTypesCollection::getInstance()->getTypeByName("catalog", "object")->getId();
-		$hierarchy_type = umiHierarchyTypesCollection::getInstance()->getType($hierarchy_type_id);
-		$type_id = umiObjectTypesCollection::getInstance()->getBaseType($hierarchy_type->getName(), $hierarchy_type->getExt());
-		
 		$sel = kFilters::getInstance($this->catalogId)->getSelectionObject();
-		
 		kFilters::getInstance($this->catalogId)->applySelectedCountFilters($sel);
-		
 		return $sel;
 	}
 }

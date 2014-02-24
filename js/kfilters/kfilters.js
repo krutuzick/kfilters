@@ -276,8 +276,8 @@
 			}
 		},
 		fields_filter_number: function(element, filterData) {
-			var sFilterNameMore = 'fields_filter[' + filterData.name + '][gt]';
-			var sFilterNameLess = 'fields_filter[' + filterData.name + '][lt]';
+			var sFilterNameMore = 'fields_filter[' + filterData.name + '][0]';
+			var sFilterNameLess = 'fields_filter[' + filterData.name + '][1]';
 			
 			var sFilterValueMore = $('input#filter-' + filterData.id + '-0', element).val();
 			var sFilterValueLess = $('input#filter-' + filterData.id + '-1', element).val();

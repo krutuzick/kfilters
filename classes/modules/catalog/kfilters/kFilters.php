@@ -197,13 +197,18 @@ SQL;
 	 * @param umiSelection $selection Объект umiSelection
 	 */
 	public function applySelectedCountFilters(&$selection) {
-		foreach($_REQUEST as $key => $value) {
+		$filters = $_REQUEST;
+		foreach($filters as $key => $value) {
 			if(preg_match("/^filter\-[\d]+$/i", $key)) {
 				$iFieldId = substr($key, strpos($key, "-") + 1);
 				
 				$value = (is_array($value)) ? $value : array($value);
-				
 				$arEquals = array();
+				if(isset($value['gt']) && isset($value['lt'])) {
+					$selection->addPropertyFilterBetween($iFieldId, $value['gt'], $value['lt']);
+					unset($value['gt']);
+					unset($value['lt']);
+				}
 				foreach($value as $type => $val) {
 					if($type === 'gt') {
 						$selection->addPropertyFilterMore($iFieldId, $val);

@@ -76,9 +76,13 @@ class kFiltersAction_GetFilters extends kFiltersAction {
 				if(isset($fields_filter[$field_name])) {
 					if(isset($fields_filter[$field_name]['lt'])) {
 						$iSelectedMax = $fields_filter[$field_name]['lt'];
+					} elseif (isset($fields_filter[$field_name][1])) {
+						$iSelectedMax = $fields_filter[$field_name][1];
 					}
 					if(isset($fields_filter[$field_name]['gt'])) {
 						$iSelectedMin = $fields_filter[$field_name]['gt'];
+					} elseif (isset($fields_filter[$field_name][0])) {
+						$iSelectedMin = $fields_filter[$field_name][0];
 					}
 				}
 				

@@ -143,4 +143,15 @@ N должно быть ссылкой, по нажатию на которую будет выполняться то же действие, ч
   Менять можно методы (кроме __construct). 
   В объекте доступны свойства $this->catalogId (ID категории каталога, для которой строятся фильтры) и $this->objectsTypeId (ID типа объектов каталога, преобладающих в категории (для которых строятся фильтры))
   Достпно окружение  umi.cms.
- 
+
+4. Кэш
+  Кэш формируется в двух местах - для бэкэнда и статический кэш запросов.
+  Для бэкэнда формируется два файла в папке classes/modules/catalog/kfilters/kCache -  XXX.dat и queriesXXX.dat
+  Статический кэш формируется в папке js/kfilters/kJsonCache и содержит структуру папок аналогичную структуре запроса (сам файл с кэшом назвается index.html).
+  Для того, чтобы сбросить весь кэш - достаточно очистить папки classes/modules/catalog/kfilters/kCache и js/kfilters/kJsonCache.
+  Для того, чтобы сбросить кэш только для определённой категории надо применить следующий алгоритм:
+  1) Пусть ID категории, для которой надо сбросить кэш будет <ElementID>;
+  2) Удалить файл classes/modules/catalog/kfilters/kCache/<ElementID>.dat
+  3) Удалить файл classes/modules/catalog/kfilters/kCache/queries<ElementID>.dat
+  4) Удалить папку js/kfilters/kJsonCache/udata/catalog/kfilters/GetCount/<ElementID>
+  5) Удалить папку js/kfilters/kJsonCache/udata/catalog/kfilters/GetFilters/<ElementID>

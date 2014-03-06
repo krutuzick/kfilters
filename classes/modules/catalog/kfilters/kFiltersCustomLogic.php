@@ -24,7 +24,7 @@ class kFiltersCustomLogic {
 	}
 	
 	
-	
+
 	
 	
 	
@@ -34,7 +34,7 @@ class kFiltersCustomLogic {
 	 * @return array Список названий групп полей
 	 */
 	public function groupNames() {
-		return array("cenovye_svojstva", "special", "special_settings");
+		return array("cenovye_svojstva", "catalog_filter_prop");
 	}
 	
 	
@@ -63,8 +63,9 @@ class kFiltersCustomLogic {
 		$arHiddenFields = array();
 		
 		//$arHiddenFields[] = 'price_msk';
-		$arHiddenFields[] = 'old_price';
-		$arHiddenFields[] = 'extra_goods';
+		//$arHiddenFields[] = 'old_price';
+		//$arHiddenFields[] = 'extra_goods';
+		$arHiddenFields[] = 'napryazhenie_v';
 		
 		return $arHiddenFields;
 	}
@@ -118,6 +119,7 @@ class kFiltersCustomLogic {
 	 */
 	public function expanded() {
 		return array("price");
+		//return array();
 	}
 };
 

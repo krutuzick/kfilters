@@ -210,3 +210,22 @@
 	float: none;
 	font-size: 0px;
 }
+
+/** CUSTOM **/
+.kfilter {
+	border: none;
+	border-radius: 0;
+	padding: 0;
+}
+#kFiltersBlock.kfilter .kform {
+	border: 1px solid #FF9B00;
+	border-radius: 10px;
+	padding: 5px 5px 5px 5px;
+}
+#kFiltersBlock.kfilter .kform > ul > li {
+	display: inline-block;
+	//display: inline;
+	//zoom: 1;
+	width: 49%;
+	vertical-align: top !important;
+}

@@ -115,9 +115,9 @@ N должно быть ссылкой, по нажатию на которую будет выполняться то же действие, ч
 	<script type='text/javascript'>
 	jQuery(document).ready(function($) {
 		$.fn.qtip.styles.kTips.tip = "topRight";
-		$.fn.qtip.styles.kCountTips.tip = "rightMiddle";
+		$.fn.qtip.styles.kCountTips.tip = "leftMiddle";
 		$('#kFiltersBlock').kFilters({
-			width: '280px',
+			width: '100%',
 			'min-height': '80px',
 			category_id: 30318,
 			tipPosition: {
@@ -125,8 +125,8 @@ N должно быть ссылкой, по нажатию на которую будет выполняться то же действие, ч
 				target: 'bottomLeft'
 			},
 			countTipPosition: {
-				target: 'leftMiddle',
-				tooltip: 'rightMiddle'
+				target: 'rightMiddle',
+				tooltip: 'leftMiddle'
 			}
 			//,debug: true
 		});
